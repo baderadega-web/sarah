@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="description" content="عالم صغير من النجوم — هدية عيد ميلاد لسارة" />
+  <title>سارة ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="sky" aria-hidden="true">
+    <canvas id="starfield"></canvas>
+    <div class="haze haze--far"></div>
+    <div class="haze haze--near"></div>
+    <div class="clouds" id="clouds"></div>
+    <div class="moon" id="moon">
+      <div class="moon__glow"></div>
+      <div class="moon__body"></div>
+    </div>
+    <div class="vignette"></div>
+    <div class="center-light" id="centerLight"></div>
+  </div>
+
+  <button
+    type="button"
+    class="audio-toggle"
+    id="audioToggle"
+    aria-pressed="false"
+    aria-label="تشغيل أو إيقاف الصوت"
+    title="الصوت"
+  >
+    <span class="audio-toggle__icon" aria-hidden="true">♪</span>
+  </button>
+
+  <main id="experience" class="experience">
+    <!-- Scene 1: Introduction -->
+    <section class="scene scene--active" id="scene-1" data-scene="1" aria-label="المقدمة">
+      <div class="scene__inner">
+        <p class="line line--soft" id="s1-line1" hidden>«في مكانٍ ما، هناك شخص بجنن يستحق أن نحتفل به اليوم..»</p>
+        <p class="line line--bright" id="s1-line2" hidden>«واليوم هو يومكِ أنتِ ✨»</p>
+        <button type="button" class="btn btn--glass" id="s1-btn" hidden>
+          افتحي المفاجأة 🎁
+        </button>
+      </div>
+    </section>
+
+    <!-- Scene 2: Birthday -->
+    <section class="scene" id="scene-2" data-scene="2" aria-label="لحظة عيد الميلاد" hidden>
+      <div class="scene__inner scene__inner--cake">
+        <div class="cake-stage" id="cakeStage" aria-hidden="true">
+          <div class="cake-particles" id="cakeParticles"></div>
+          <div class="cake">
+            <div class="cake__candle">
+              <div class="cake__flame"></div>
+              <div class="cake__wick"></div>
+            </div>
+            <div class="cake__top"></div>
+            <div class="cake__frosting"></div>
+            <div class="cake__layer cake__layer--mid"></div>
+            <div class="cake__layer cake__layer--base"></div>
+            <div class="cake__plate"></div>
+          </div>
+          <div class="cake-sparkles" id="cakeSparkles"></div>
+        </div>
+        <p class="line line--hero" id="s2-line1" hidden>«كل عام وإنتِ بخير يا أحلى سارة بالدنيا!! 🎂✨»</p>
+        <button type="button" class="btn btn--glass" id="s2-btn" hidden>
+          تابعي الرحلة 🌠
+        </button>
+      </div>
+    </section>
+
+    <!-- Scene 3: Three memories -->
+    <section class="scene" id="scene-3" data-scene="3" aria-label="ثلاث ذكريات" hidden>
+      <div class="scene__inner scene__inner--memories">
+        <p class="line line--soft" id="s3-intro" hidden>«ثلاث لحظات جميلة من بين الكثير... ✨»</p>
+
+        <div class="memory-stars" id="memoryStars" aria-label="نجوم الذكريات">
+          <button type="button" class="memory-star" data-memory="0" aria-label="الذكرى الأولى" style="--mx: 18%; --my: 32%;">
+            <span class="memory-star__core"></span>
+            <span class="memory-star__halo"></span>
+          </button>
+          <button type="button" class="memory-star" data-memory="1" aria-label="الذكرى الثانية" style="--mx: 52%; --my: 22%;">
+            <span class="memory-star__core"></span>
+            <span class="memory-star__halo"></span>
+          </button>
+          <button type="button" class="memory-star" data-memory="2" aria-label="الذكرى الثالثة" style="--mx: 78%; --my: 40%;">
+            <span class="memory-star__core"></span>
+            <span class="memory-star__halo"></span>
+          </button>
+        </div>
+
+        <div class="memory-viewer" id="memoryViewer" hidden>
+          <div class="memory-viewer__backdrop" id="memoryBackdrop"></div>
+          <div class="memory-viewer__frame" id="memoryFrame">
+            <button type="button" class="memory-nav memory-nav--prev" id="memoryPrev" aria-label="السابق">‹</button>
+            <figure class="memory-figure">
+              <img id="memoryImage" src="" alt="ذكرى سارة" loading="lazy" />
+              <figcaption class="memory-caption" id="memoryCaption"></figcaption>
+            </figure>
+            <button type="button" class="memory-nav memory-nav--next" id="memoryNext" aria-label="التالي">›</button>
+            <button type="button" class="memory-close" id="memoryClose" aria-label="إغلاق">×</button>
+          </div>
+          <div class="memory-dots" id="memoryDots" aria-hidden="true"></div>
+        </div>
+
+        <p class="line line--soft" id="s3-after" hidden>«والأجمل؟ إن القادم يحمل لحظات أجمل بإذن الله. 🌱»</p>
+        <button type="button" class="btn btn--glass" id="s3-btn" hidden>
+          كمّلي ✨
+        </button>
+      </div>
+    </section>
+
+    <!-- Scene 4: Flying wishes -->
+    <section class="scene" id="scene-4" data-scene="4" aria-label="نجوم الأمنيات" hidden>
+      <div class="scene__inner scene__inner--wishes">
+        <div class="wish-layer" id="wishLayer" aria-live="polite"></div>
+        <p class="line line--center wish-finale" id="s4-finale" hidden>
+          «وأمنيات كثيرة ما بتكفيها النجوم...<br />بس نتمنى لكِ إياها كلها 🤍»
+        </p>
+      </div>
+    </section>
+
+    <!-- Scene 5: The letter -->
+    <section class="scene" id="scene-5" data-scene="5" aria-label="الرسالة" hidden>
+      <div class="scene__inner scene__inner--letter">
+        <article class="letter" id="letter">
+          <p class="letter__line" id="letter-1" hidden>«يمكن المسافة بعيدة اليوم، بس ما حبيت يمر عيد ميلادك بدون ما أتركلك شيئًا صغيرًا يذكّركِ إننا نتذكركِ ونفرح بيومكِ.</p>
+          <p class="letter__line" id="letter-2" hidden>نتمنى لكِ عامًا مليئًا بالأيام الجميلة، والضحكات، والنجاحات، وراحة البال.</p>
+          <p class="letter__line" id="letter-3" hidden>وكل أمنية جميلة في بالك، يجعل الله لها طريقًا إليكِ. 🤍</p>
+          <p class="letter__line" id="letter-4" hidden>كل عام وإنتِ بخير يا أحلى وألطف إضافة للعيلة. 🤍»</p>
+        </article>
+        <button type="button" class="btn btn--glass" id="s5-btn" hidden>
+          إلى النهاية ✨
+        </button>
+      </div>
+    </section>
+
+    <!-- Scene 6: Cinematic ending -->
+    <section class="scene" id="scene-6" data-scene="6" aria-label="النهاية" hidden>
+      <div class="scene__inner scene__inner--ending">
+        <div class="final-star" id="finalStar" aria-hidden="true"></div>
+        <p class="line line--soft" id="s6-line1" hidden>«بعض الأشخاص يستحقون أن تكون لهم نجمة خاصة في سماء هذا اليوم.»</p>
+        <p class="line line--climax" id="s6-line2" hidden>«عيد ميلاد سعيد يا أحلى سارة بالكون كله ✨»</p>
+        <p class="line line--signoff" id="s6-signoff" hidden>«مني لكِ... بكل المحبة والدعوات الجميلة 🤍»</p>
+        <div class="celebration" id="celebration" aria-hidden="true"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Easter egg: floating 🤔 -->
+  <button type="button" class="egg-emoji" id="eggStar" hidden aria-label="🤔">
+    <span class="egg-emoji__hit" aria-hidden="true"></span>
+    <span class="egg-emoji__face" aria-hidden="true">🤔</span>
+  </button>
+
+  <div class="egg-popup" id="eggPopup" hidden role="dialog" aria-modal="true" aria-labelledby="eggTitle">
+    <div class="egg-popup__veil" aria-hidden="true"></div>
+    <div class="egg-popup__stage">
+      <span class="egg-popup__emoji" id="eggPopupEmoji" aria-hidden="true">🤔</span>
+      <div class="egg-popup__panel">
+        <p class="egg-popup__line" id="eggTitle" hidden>«بس لحظة... 😌»</p>
+        <p class="egg-popup__line" id="eggLine2" hidden>«عجبتك هدية حمودات؟ 😌😉»</p>
+        <button type="button" class="btn btn--glass btn--small" id="eggBtn" hidden>أكيد 😂🤍</button>
+        <p class="egg-popup__line egg-popup__line--final" id="eggFinal" hidden>
+          «كنت عارف 😌😂<br />كل عام وإنتِ بخير يا سارة 🤍»
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sr-only" aria-live="polite" id="liveRegion"></div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
